@@ -22,7 +22,7 @@
 		);
 
 		if (! $callback_url){
-			$callback_url =  $GLOBALS['cfg']['abs_root_url'] . 'auth_callback_oauth.php';
+			$callback_url =  $GLOBALS['cfg']['abs_root_url'] . 'auth/';
 		}
 
 		$args = array(
