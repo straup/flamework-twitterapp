@@ -8,8 +8,8 @@
 	# Some basic sanity checking like are you already logged in?
 
 	if ($GLOBALS['cfg']['user']['id']){
-		header("location: {$redir}");
-		exit();
+#		header("location: {$redir}");
+#		exit();
 	}
 
 	if (! $GLOBALS['cfg']['enable_feature_signin']){
@@ -29,7 +29,7 @@
 
 	if (! $GLOBALS['cfg']['crypto_oauth_cookie_secret']){
 		$GLOBALS['error']['oauth_missing_secret'] = 1;
-		$GLOBALS['smarty']->display("page_signin_oauth.txt");
+		$GLOBALS['smarty']->display("page_signin_twitter_oauth.txt");
 		exit();
 	}
 
@@ -42,7 +42,7 @@
 
 	if (! $rsp['ok']){
 		$GLOBALS['error']['oauth_request_token'] = 1;
-		$GLOBALS['smarty']->display("page_signin_oauth.txt");
+		$GLOBALS['smarty']->display("page_signin_twitter_oauth.txt");
 		exit();
 	}
 
@@ -60,16 +60,9 @@
 	# Now we build the actual auth URL request – this is the
 	# part where we redirect the user to Twitter to ask for
 	# permission to exchange the request token/secret for a
-	# permanent set of credentials to call the API with. Here
-	# we're padding along the desired access levels to the
-	# Twitter API along with any extra bits that we'll need to
-	# finish logging the user in when they are redirected back
-	# to this site.
-
-	$perms = $GLOBALS['cfg']['twitter_api_perms'];
+	# permanent set of credentials to call the API with.
 
 	$args = array(
-		'perms' => $perms,
 	);
 
 	$extra = array();

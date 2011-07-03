@@ -9,8 +9,8 @@
 	# Some basic sanity checking like are you already logged in?
 
 	if ($GLOBALS['cfg']['user']['id']){
-		header("location: {$GLOBALS['cfg']['abs_root_url']}");
-		exit();
+#		header("location: {$GLOBALS['cfg']['abs_root_url']}");
+#		exit();
 	}
 
 
@@ -24,7 +24,7 @@
 
 	if (! $GLOBALS['cfg']['crypto_oauth_cookie_secret']){
 		$GLOBALS['error']['oauth_missing_secret'] = 1;
-		$GLOBALS['smarty']->display("page_auth_callback_oauth.txt");
+		$GLOBALS['smarty']->display("page_auth_callback_twitter_oauth.txt");
 		exit();
 	}
 
@@ -52,7 +52,7 @@
 
 	if ((! $verifier) || (! $token)){
 		$GLOBALS['error']['oauth_missing_args'] = 1;
-		$GLOBALS['smarty']->display("page_auth_callback_oauth.txt");
+		$GLOBALS['smarty']->display("page_auth_callback_twitter_oauth.txt");
 		exit();
 	}
 
@@ -76,9 +76,12 @@
 
 	if (! $rsp['ok']){
 		$GLOBALS['error']['oauth_access_token'] = 1;
-		$GLOBALS['smarty']->display("page_auth_callback_oauth.txt");
+		$GLOBALS['smarty']->display("page_auth_callback_twitter_oauth.txt");
 		exit();
 	}
+
+dumper($rsp);
+exit;
 
 	# Hey look! If we've gotten this far then that means we've been able
 	# to use the Twitter API to validate the user and we've got an OAuth
@@ -122,7 +125,7 @@
 
 		if (! $user){
 			$GLOBALS['error']['dberr_user'] = 1;
-			$GLOBALS['smarty']->display("page_auth_callback_oauth.txt");
+			$GLOBALS['smarty']->display("page_auth_callback_twitter_oauth.txt");
 			exit();
 		}
 
@@ -135,7 +138,7 @@
 
 		if (! $twitter_user){
 			$GLOBALS['error']['dberr_twitteruser'] = 1;
-			$GLOBALS['smarty']->display("page_auth_callback_oauth.txt");
+			$GLOBALS['smarty']->display("page_auth_callback_twitter_oauth.txt");
 			exit();
 		}
 	}

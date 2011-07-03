@@ -9,8 +9,8 @@
 
 	#################################################################
 
-	$GLOBALS['cfg']['twitter_api_endpoint'] = 'http://api.twitter.com/services/rest/';
-	$GLOBALS['cfg']['twitter_oauth_endpoint'] = 'http://www.twitter.com/services/oauth/';
+	$GLOBALS['cfg']['twitter_api_endpoint'] = '';
+	$GLOBALS['cfg']['twitter_oauth_endpoint'] = 'https://api.twitter.com/oauth/';
 
 	#################################################################
 
