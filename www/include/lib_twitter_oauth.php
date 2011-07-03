@@ -14,19 +14,11 @@
 
 	#################################################################
 
-	function twitter_oauth_get_request_token($callback_url=''){
+	function twitter_oauth_get_request_token($args=array()){
 
 		$keys = array(
 			'oauth_key' => $GLOBALS['cfg']['twitter_oauth_key'],
 			'oauth_secret' => $GLOBALS['cfg']['twitter_oauth_secret'],
-		);
-
-		if (! $callback_url){
-			$callback_url =  $GLOBALS['cfg']['abs_root_url'] . 'auth/';
-		}
-
-		$args = array(
-			'oauth_callback' => $callback_url
 		);
 
 		$url = $GLOBALS['cfg']['twitter_oauth_endpoint'] . 'request_token/';
