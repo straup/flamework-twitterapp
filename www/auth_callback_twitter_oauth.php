@@ -9,8 +9,8 @@
 	# Some basic sanity checking like are you already logged in?
 
 	if ($GLOBALS['cfg']['user']['id']){
-#		header("location: {$GLOBALS['cfg']['abs_root_url']}");
-#		exit();
+		header("location: {$GLOBALS['cfg']['abs_root_url']}");
+		exit();
 	}
 
 
@@ -80,24 +80,21 @@
 		exit();
 	}
 
-dumper($rsp);
-exit;
-
 	# Hey look! If we've gotten this far then that means we've been able
 	# to use the Twitter API to validate the user and we've got an OAuth
 	# key/secret pair.
 
 	$data = $rsp['data'];
 
-	# FIX ME: GET TWITTER DATA HERE
+	$twitter_id = $data['user_id'];
+	$username = $data['screen_name'];
 
 	# The first thing we do is check to see if we already have an account
-	# matching that user's Twitter NSID.
+	# matching that user's Twitter ID.
 
 	$twitter_user = twitter_users_get_by_twitter_id($twitter_id);
 
 	if ($user_id = $twitter_user['user_id']){
-
 		$user = users_get_by_id($user_id);
 	}
 
@@ -132,8 +129,8 @@ exit;
 		$twitter_user = twitter_users_create_user(array(
 			'user_id' => $user['id'],
 			'twitter_id' => $twitter_id,
-			'oauth_token' => $keys['user_key'],
-			'oauth_secret' => $keys['user_secret'],
+			'oauth_token' => $data['oauth_token'],
+			'oauth_secret' => $data['oauth_token_secret'],
 		));
 
 		if (! $twitter_user){

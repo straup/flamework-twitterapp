@@ -8,8 +8,8 @@
 	# Some basic sanity checking like are you already logged in?
 
 	if ($GLOBALS['cfg']['user']['id']){
-#		header("location: {$redir}");
-#		exit();
+		header("location: {$redir}");
+		exit();
 	}
 
 	if (! $GLOBALS['cfg']['enable_feature_signin']){
