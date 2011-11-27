@@ -1,0 +1,10 @@
+<?php
+
+	# Twitter OAuth stuff
+
+	$GLOBALS['cfg']['twitter_oauth_key'] = '';
+	$GLOBALS['cfg']['twitter_oauth_secret'] = '';	
+	$GLOBALS['cfg']['crypto_oauth_cookie_secret'] = '';	# (see notes in www/sign_oauth.php)
+	$GLOBALS['cfg']['twitter_api_perms'] = 'read';
+
+?>
