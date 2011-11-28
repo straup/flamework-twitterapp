@@ -1,0 +1,4 @@
+# Login stuff (Twitter)
+
+RewriteRule  ^signin/?$			/signin_twitter_oauth.php	[L]
+RewriteRule  ^auth/?$			/auth_callback_twitter_oauth.php?%{QUERY_STRING} [L]

@@ -27,4 +27,8 @@ echo "setup (mostly) complete"
 echo "you will still need to update your config file manually"
 echo ""
 
+# TO DO: generate oauth cookie secret
+
 cat ${TWITTERAPP}/www/include/config.php.example
+
+# TO DO: .htaccess configs
