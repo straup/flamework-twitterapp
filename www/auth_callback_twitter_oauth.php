@@ -37,7 +37,7 @@
 
 	if (! $oauth_cookie){
 		$GLOBALS['error']['oauth_missing_cookie'] = 1;
-		$GLOBALS['smarty']->display("page_auth_callback_oauth.txt");
+		$GLOBALS['smarty']->display("page_auth_callback_twitter_oauth.txt");
 		exit();
 	}
 
