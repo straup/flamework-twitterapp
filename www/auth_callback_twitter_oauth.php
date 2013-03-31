@@ -114,17 +114,19 @@
 
 		$password = random_string(32);
 
-		$user = users_create_user(array(
+		$rsp = users_create_user(array(
 			"username" => $username,
 			"email" => "{$username}@donotsend-twitter.com",
 			"password" => $password,
 		));
 
-		if (! $user){
+		if (! $rsp['ok']){
 			$GLOBALS['error']['dberr_user'] = 1;
 			$GLOBALS['smarty']->display("page_auth_callback_twitter_oauth.txt");
 			exit();
 		}
+
+		$user = $rsp['user'];
 
 		$twitter_user = twitter_users_create_user(array(
 			'user_id' => $user['id'],
@@ -143,9 +145,12 @@
 	# Okay, now finish logging the user in (setting cookies, etc.) and
 	# redirecting them to some specific page if necessary.
 
-	$redir = (isset($extra['redir'])) ? $extra['redir'] : '';
+	$redir = '';
+
+	if ($redir_cookie = login_get_cookie('r')){
+		login_unset_cookie('r');
+		$redir = crypto_decrypt($redir_cookie, $GLOBALS['cfg']['crypto_oauth_cookie_secret']);
+	}
 
 	login_do_login($user, $redir);
 	exit();
-
-?>
