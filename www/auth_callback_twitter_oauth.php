@@ -130,9 +130,9 @@
 				$GLOBALS['smarty']->display("page_auth_callback_twitter_oauth.txt");
 				exit();
 			}
-		}
 
-		$user = $rsp['user'];
+			$user = $rsp['user'];
+		}
 
 		$twitter_user = twitter_users_create_user(array(
 			'user_id' => $user['id'],
