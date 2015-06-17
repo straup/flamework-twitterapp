@@ -114,19 +114,25 @@
 
 		$password = random_string(32);
 
-		$rsp = users_create_user(array(
-			"username" => $username,
-			"email" => "{$username}@donotsend-twitter.com",
-			"password" => $password,
-		));
+		$email = "{$username}@donotsend-twitter.com";
+		$user = users_get_by_email($email);
 
-		if (! $rsp['ok']){
-			$GLOBALS['error']['dberr_user'] = 1;
-			$GLOBALS['smarty']->display("page_auth_callback_twitter_oauth.txt");
-			exit();
+		if (! $user){
+
+			$rsp = users_create_user(array(
+				"username" => $username,
+				"email" => $email,
+				"password" => $password,
+			));
+
+			if (! $rsp['ok']){
+				$GLOBALS['error']['dberr_user'] = 1;
+				$GLOBALS['smarty']->display("page_auth_callback_twitter_oauth.txt");
+				exit();
+			}
+
+			$user = $rsp['user'];
 		}
-
-		$user = $rsp['user'];
 
 		$twitter_user = twitter_users_create_user(array(
 			'user_id' => $user['id'],
